@@ -144,6 +144,7 @@ const update = () => {
     (offsetWidth - originalWidth) /
     (width / (offsetWidth - width))
 
+  // 滑块的高度
   sizeHeight.value = height + GAP < offsetHeight ? `${height}px` : ''
   sizeWidth.value = width + GAP < offsetWidth ? `${width}px` : ''
 }

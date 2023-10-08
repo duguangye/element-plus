@@ -67,10 +67,11 @@ const offsetRatio = computed(
 )
 
 const clickThumbHandler = (e: MouseEvent) => {
+  // console.log('滑块移动')
   // prevent click event of middle and right button
   e.stopPropagation()
   if (e.ctrlKey || [1, 2].includes(e.button)) return
-
+  // 返回一个 Selection 对象，表示用户选择的文本范围或光标的当前位置。
   window.getSelection()?.removeAllRanges()
   startDrag(e)
 
@@ -99,6 +100,7 @@ const clickTrackHandler = (e: MouseEvent) => {
 }
 
 const startDrag = (e: MouseEvent) => {
+  //  方法阻止监听同一事件的其他事件监听器被调用。
   e.stopImmediatePropagation()
   cursorDown = true
   document.addEventListener('mousemove', mouseMoveDocumentHandler)
@@ -106,7 +108,7 @@ const startDrag = (e: MouseEvent) => {
   originalOnSelectStart = document.onselectstart
   document.onselectstart = () => false
 }
-
+// 手动移动滑块的时候
 const mouseMoveDocumentHandler = (e: MouseEvent) => {
   if (!instance.value || !thumb.value) return
   if (cursorDown === false) return
@@ -125,8 +127,12 @@ const mouseMoveDocumentHandler = (e: MouseEvent) => {
   scrollbar.wrapElement[bar.value.scroll] =
     (thumbPositionPercentage * scrollbar.wrapElement[bar.value.scrollSize]) /
     100
+  // console.log(bar.value);
+  // console.log(bar.value.scroll);
+  // console.log(scrollbar.wrapElement);
+  // console.log(scrollbar.wrapElement[bar.value.scroll]);
 }
-
+// 抬起结束划动
 const mouseUpDocumentHandler = () => {
   cursorDown = false
   thumbState.value[bar.value.axis] = 0
